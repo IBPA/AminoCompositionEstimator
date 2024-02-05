@@ -1,63 +1,73 @@
-# Title of the Project Goes Here
+# ACE: A fast quantitative approach of amino acid composition estimation
+Calculating amino acid composition of a food sample usually requires expensive instruments and long processing time in laboratories. We propose a fast quantitative approach to approximate the amino acid composition of food samples given their proteomics data. We utilize Top3 quantitation method and a sophisticated data preprocessing pipeline to achieve a relatively accurate estimation.
+![Comparison](./figs/fig1.png)
+**Fig 1. Amino acid composition estimation of broiled groun beef patty food sample.** Blue is the ground truth provided by USDA. Red is a baseline approach without using Top3 quantitation. Green is our proposed approach with Top3 quantitation and sophiscated data preprocessing.
+## Directories
+* <code>[Example](./ace/example)</code>: Example notebooks.
+* <code>[CLI](./ace/main.py)</code>: Command-line interface script.
 
-Put a short description of what this project is about. You can optionally put figure like I did below. Usually, I find Figure 1 of the paper to be a good fit. I created ```images``` branch to store the all the images so that you can avoid them being in the master working tree. For more info and other ways to embed a image files to the README file, please refer to this [link](https://stackoverflow.com/questions/10189356/how-to-add-screenshot-to-readmes-in-github-repository). For more information on how to use markdown, please use this [link](https://guides.github.com/features/mastering-markdown/). You can use this repository as a template when creating your repository. Please use this [link](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) for more info on that. Finally, you can refer to the [LOVE repository](https://github.com/IBPA/LOVE) for sample.
-
-![Figure 1](/../images/Figure1.jpg?raw=true)
-
-## 1. Directories
-
-In this section, you should describe briefly what each directory contains. I don't want to enforce same directory format for everyone since every project is different. Key here is to name the directories specific yet succint as possible. Please look at famous repositories like [scikit-learn](https://github.com/scikit-learn/scikit-learn) or [freeCodeCamp](https://github.com/freeCodeCamp/freeCodeCamp) for some ideas.
-
-* <code>[data](./data)</code>: Contains all data files.
-
-## 2. Getting Started
-
-Not all project is same. You can modify the headings below a little to be more suitable for your project. If you wish to release the repository as a package, please refer to this great [document](https://docs.google.com/document/d/1NZSE_JKInoYgkV7KUI4T5yO8QmFycwStMW_9PrR-IEE/edit) Fang created.
-
-### 2a. Prerequisites
-
-If you have some prerequisites such as python libraries or other tools that need to be installed in advance, you can specify them here. For instructions on how to run a code, always follow the format like the following:
-
+# Getting Started
+## Installation
 ```
-# Code should be formatted like this.
-python3 hello_world.py
+git clone https://github.com/IBPA/ACE.git
+pip install ./ACE
 ```
 
-### 2b. Running
-
-Instructions on how to run the code goes here. All inline code should be written like this `python3 hello_world.py`.
-
+## Prerequisites
 ```
-some code
+python>=3.6
+numpy>=1.19.3
+pandas>=1.1.5
+notebook>=6.1.5
 ```
 
-## 3. Authors
+## How to Use
+### Command-line Interface
+#### Usage
+```
+cd path/to/ACE/ace
+python main.py -h
+usage: main.py [-h] [--output [OUTPUT]] [--save-pqi]
+               [--log-level {10,20,30,40,50}] [input]
 
-* **Jason Youn** @ [https://github.com/jasonyoun](https://github.com/jasonyoun)
+positional arguments:
+  input                 The path to your proteomics data file.
 
-## 4. Contact
+optional arguments:
+  -h, --help            show this help message and exit
+  --output [OUTPUT], -o [OUTPUT]
+                        The path to store your output.
+  --save-pqi, -s
+  --log-level {10,20,30,40,50}, -l {10,20,30,40,50}
+                        The specified log level:
+                        - 50: CRITICAL
+                        - 40: ERROR
+                        - 30: WARNING
+                        - 20: INFO
+                        - 10: DEBUG
+```
 
+#### Example
+```
+python main.py ../example/proteomics_example.csv -o example --save-pqi
+```
+
+### API
+#### Example
+- [Estimate amino acid composition](./example/estimate_amino_acid_composition.ipynb)
+- [Customize your hash table](./example/create_custom_hash_table.ipynb)
+
+## Authors
+* **Fangzhou Li** - https://github.com/fangzhouli
+
+## Contact
 For any questions, please contact us at tagkopouloslab@ucdavis.edu.
 
-## 5. Citation
+## License
+This project is licensed under the Apache 2.0 License. Please see the <code>[LICENSE](./LICENSE)</code> file for details.
 
-Put citation here. Let's use the exactly same format that is used in our [lab page](http://tagkopouloslab.ucdavis.edu/?page_id=648).
+## Credits
+Thanks Nikita Bacalzo for providing data. Thanks Jason Youn for code review. Thanks Prof. Tagkopoulos and Prof. Lebrilla for advising and support.
 
-## 6. License
-
-This project is licensed under the GNU GPLv3 License. Please see the <code>[LICENSE](./LICENSE)</code> file for details.
-
-## 7. FAQ
-
-If you have an FAQ, you can put them here. If not needed, just removed this section.
-
-* How do I do this?
-	* You don't now how to do that?
-
-1. You can also number them like this.
-	* Say what?
-
-## 8. Acknowledgments
-
-* Acknowledgements go here.
-* If there are people beta tested the code, help with its writing, etc. add them here.
+## References
+- [1] [Gerster, Sarah, et al., 2014. Statistical Approach to Protein Quantification.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3916661/)
